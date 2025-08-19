@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblioteka Smyka</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <h1>📚 Biblioteka Smyka</h1>
+            <div class="header-buttons">
+                <button class="db-info-btn" onclick="bookManager.showDatabaseInfo()" title="Informacje o bazie danych">💾</button>
+                <button class="add-book-btn" onclick="openAddBookModal()">+ Dodaj książkę</button>
+            </div>
+        </header>
+
+        <!-- Navigation Tabs -->
+        <nav class="nav-tabs">
+            <button class="tab-btn active" onclick="showTab('all-books')">Wszystkie książki</button>
+            <button class="tab-btn" onclick="showTab('authors')">Autorzy</button>
+            <button class="tab-btn" onclick="showTab('wishlist')">Lista życzeń</button>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- All Books Tab -->
+            <div id="all-books" class="tab-content active">
+                <div class="books-grid" id="books-container">
+                    <!-- Books will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Authors Tab -->
+            <div id="authors" class="tab-content">
+                <div class="authors-header">
+                    <h3>Sortuj autorów według:</h3>
+                    <div class="sort-options">
+                        <button class="sort-btn active" onclick="bookManager.sortAuthors('alphabetical')">Alfabetycznie</button>
+                        <button class="sort-btn" onclick="bookManager.sortAuthors('bookCount')">Liczba książek</button>
+                    </div>
+                </div>
+                <div class="authors-list" id="authors-container">
+                    <!-- Authors will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Wishlist Tab -->
+            <div id="wishlist" class="tab-content">
+                <div class="books-grid" id="wishlist-container">
+                    <!-- Wishlist books will be loaded here -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Add Book Modal -->
+    <div id="add-book-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeAddBookModal()">&times;</span>
+            <h2>Dodaj nową książkę</h2>
+            <form id="add-book-form">
+                <div class="form-group">
+                    <label for="book-title">Tytuł:</label>
+                    <input type="text" id="book-title" required>
+                </div>
+                <div class="form-group">
+                    <label for="book-author">Autor:</label>
+                    <div class="author-input-container">
+                        <select id="book-author-select" onchange="bookManager.handleAuthorChange()">
+                            <option value="">-- Wybierz autora --</option>
+                            <option value="new">+ Dodaj nowego autora</option>
+                        </select>
+                        <input type="text" id="book-author-new" placeholder="Nazwa nowego autora" style="display: none;">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="book-price">Cena (zł):</label>
+                    <input type="number" id="book-price" step="0.01" min="0">
+                </div>
+                <div class="form-group">
+                    <label for="book-image">URL obrazka:</label>
+                    <input type="url" id="book-image" placeholder="https://example.com/ksiazka.jpg">
+                </div>
+                <div class="form-group">
+                    <label for="book-status">Status:</label>
+                    <select id="book-status">
+                        <option value="wishlist">Lista życzeń</option>
+                        <option value="owned">Kupiona</option>
+                    </select>
+                </div>
+                <button type="submit" class="submit-btn">Dodaj książkę</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
